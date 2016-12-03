@@ -1,0 +1,22 @@
+<!--新用户注册，信息写入数据库,此处未写二次输入密码确认的方法-->
+<?php
+$con = mysql_connect("localhost","jack","jack2016");
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+mysql_select_db("my_db", $con);
+
+$sql="INSERT INTO User (Name, Pwd)
+VALUES
+('$_POST[Name]','$_POST[Pwd1]')";
+
+if (!mysql_query($sql,$con))
+  {
+  die('Error: ' . mysql_error());
+  }
+echo "1 newUsermsg added";
+
+mysql_close($con)
+?>
