@@ -1,0 +1,36 @@
+<?php
+$con = mysql_connect("localhost","jack","jack2016");//个人主页，数据库名，密码
+//判断是否能连接到数据库
+if (!$con)
+  {
+  die('Could not connect: ' . mysql_error());
+  }
+
+// 创建数据库my_db
+if (mysql_query("CREATE DATABASE my_db",$con))
+//mysql_query该函数用于向 SQL 连接发送查询和命令
+  {
+  echo "Database created";
+  }
+else
+  {
+  echo "Error creating database: " . mysql_error();
+  }
+
+// 创建 User 表
+mysql_select_db("my_db", $con);
+$sql = "CREATE TABLE User 
+(
+personID int NOT NULL AUTO_INCREMENT, 
+PRIMARY KEY(userID),
+Name varchar(15),
+Pwd varchar(15)
+)";
+mysql_query($sql,$con);
+
+//向数据库中初始化两个用户数据
+mysql_query("INSERT INTO User (Name, Pwd) VALUES ('xiaoming','123')");
+mysql_query("INSERT INTO User (Name, Pwd) VALUES ('xiaohong','456')");
+
+mysql_close($con);
+?>
